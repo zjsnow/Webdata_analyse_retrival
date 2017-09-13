@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'WebSpider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'WebSpider (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36' #修改为浏览器的user_agent，因为大部分的浏览器在请求过快时，会检查user_agent字段
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -64,9 +64,12 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'WebSpider.pipelines.WebspiderPipeline': 300,
-#}
+#启动item pipeline组件，每个pipeline后面都有一个数值，范围一般为0-1000，这个数值确定了它们运行的顺序，数字前的优先
+ITEM_PIPELINES = {
+    # 'WebSpider.pipelines.TextPipeline': 300,  # 保存到txt文件中
+    # 'WebSpider.pipelines.JsonPipeline': 300,#保存到json文件中
+   'WebSpider.pipelines.WebSpiderPipeline': 300,#保存到数据库
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -89,13 +92,10 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-ITEM_PIPELINES={
-    'WebSpider.pipelines.WebSpiderPipeline':300
-}
 
-#mysql数据库配置信息
-# MYSQL_HOST='127.0.0.1'
-# MYSQL_DBNAME='moviedb' #数据库名字
-# MYSQL_USER='root' #数据库账号
-# MYSQL_PASSWORD='toorzjs'
+# mysql数据库配置信息
+MYSQL_HOST='127.0.0.1' #本地机
+MYSQL_DBNAME='moviedb' #数据库名字
+MYSQL_USER='root' #数据库账号
+MYSQL_PASSWORD='toorzjs'
 
